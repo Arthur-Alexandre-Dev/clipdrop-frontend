@@ -2,6 +2,11 @@
 
 ClipDrop é um moderno aplicativo para download de vídeos e áudios do YouTube construído com Next.js. Esta aplicação permite aos usuários baixar facilmente conteúdo do YouTube em vários formatos e qualidades.
 
+## Requisitos
+
+- Node.js 22 ou superior
+- Yarn
+
 ## Funcionalidades
 
 - Download de vídeos do YouTube, YouTube Music e YouTube Shorts
@@ -11,6 +16,8 @@ ClipDrop é um moderno aplicativo para download de vídeos e áudios do YouTube 
 - Suporte para modo escuro
 
 ## Como Iniciar
+
+Certifique-se de estar usando o **Node.js versão 22 ou superior** antes de prosseguir.
 
 Primeiro, instale as dependências:
 
@@ -28,6 +35,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver a 
 
 ## Stack Tecnológica
 
+- **Node.js**: Versão 22 ou superior (obrigatório)
 - **Framework**: [Next.js 15](https://nextjs.org/) com App Router
 - **Componentes UI**: Componentes personalizados com [Radix UI](https://www.radix-ui.com/)
 - **Estilização**: [Tailwind CSS](https://tailwindcss.com/)
@@ -44,9 +52,12 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver a 
 
 ## Desenvolvimento
 
-Este projeto usa Next.js com Turbopack para atualização rápida e TypeScript para segurança de tipos. **Por favor, utilize apenas o Yarn como gerenciador de pacotes para este projeto.**
+Este projeto usa Next.js com Turbopack para atualização rápida e TypeScript para segurança de tipos. **Por favor, utilize apenas o Yarn como gerenciador de pacotes para este projeto e certifique-se de estar usando o Node.js versão 22 ou superior.**
 
 ```bash
+# Verificar versão do Node.js (deve ser 22 ou superior)
+node --version
+
 # Executar servidor de desenvolvimento com Turbopack
 yarn dev
 

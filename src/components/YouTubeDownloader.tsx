@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Download } from "lucide-react";
 import { BackgroundBeamsWithCollision } from "./ui/background-beams-with-collision";
-import { FlipWords } from "../../components/ui/flip-words";
+import { FlipWords } from "./ui/flip-words";
 import {
   Select,
   SelectTrigger,
