@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ClipDrop
 
-## Getting Started
+ClipDrop é um moderno aplicativo para download de vídeos e áudios do YouTube construído com Next.js. Esta aplicação permite aos usuários baixar facilmente conteúdo do YouTube em vários formatos e qualidades.
 
-First, run the development server:
+## Funcionalidades
+
+- Download de vídeos do YouTube, YouTube Music e YouTube Shorts
+- Suporte para múltiplos formatos (MP4, MP3, etc.)
+- Várias opções de qualidade (1080p, 720p, etc.)
+- Interface de usuário limpa e responsiva com animações
+- Suporte para modo escuro
+
+## Como Iniciar
+
+Primeiro, instale as dependências:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Em seguida, execute o servidor de desenvolvimento:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver a aplicação.
 
-## Learn More
+## Stack Tecnológica
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: [Next.js 15](https://nextjs.org/) com App Router
+- **Componentes UI**: Componentes personalizados com [Radix UI](https://www.radix-ui.com/)
+- **Estilização**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animações**: [Framer Motion](https://www.framer.com/motion/)
+- **Player de YouTube**: [React YouTube](https://github.com/tjallingt/react-youtube)
+- **Ícones**: [Lucide React](https://lucide.dev/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura do Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app`: Arquivos do App Router do Next.js
+- `src/components`: Componentes React, incluindo o componente principal YouTubeDownloader
+- `src/components/ui`: Componentes UI reutilizáveis
+- `src/lib`: Funções utilitárias e código compartilhado
 
-## Deploy on Vercel
+## Desenvolvimento
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Este projeto usa Next.js com Turbopack para atualização rápida e TypeScript para segurança de tipos. **Por favor, utilize apenas o Yarn como gerenciador de pacotes para este projeto.**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Executar servidor de desenvolvimento com Turbopack
+yarn dev
+
+# Construir para produção
+yarn build
+
+# Iniciar servidor de produção
+yarn start
+
+# Executar verificação de linting
+yarn lint
+```
+
+## Licença
+
+Este projeto é público e de código aberto.
