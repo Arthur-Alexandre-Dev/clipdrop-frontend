@@ -71,202 +71,208 @@ export function YouTubeDownloader() {
 
   return (
     <BackgroundBeamsWithCollision>
-      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 md:px-0 py-4 sm:py-6 mt-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full"
-        >
-          <h1 className="text-4xl font-bold text-center mt-8 mb-2 handwriting text-white">
-            ClipDrop
-          </h1>
-          <div className="flex flex-wrap items-center justify-center text-gray-300 mb-4 max-w-lg mx-auto text-lg md:text-lg sm:text-base px-4">
-            <span className="mr-[1px]">Baixe</span>
-            <FlipWords
-              words={[
-                "vídeos",
-                "músicas",
-                "documentários",
-                "conteúdo",
-                "tutoriais",
-                "podcasts",
-              ]}
-              className="text-white font-bold mx-[1px] text-lg md:text-lg sm:text-base"
-              duration={2000}
-            />
-            <span className="ml-[1px]">do YouTube em alta qualidade</span>
-          </div>
+      <div className="flex items-center justify-center min-h-screen w-full">
+        <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 md:px-0 py-4 sm:py-6 flex flex-col items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full flex flex-col items-center"
+          >
+            <h1 className="text-4xl font-bold text-center mt-8 mb-2 handwriting text-white">
+              ClipDrop
+            </h1>
+            <div className="flex flex-wrap items-center justify-center text-gray-300 mb-4 max-w-lg mx-auto text-lg md:text-lg sm:text-base px-4">
+              <span className="mr-[1px]">Baixe</span>
+              <FlipWords
+                words={[
+                  "vídeos",
+                  "músicas",
+                  "documentários",
+                  "conteúdo",
+                  "tutoriais",
+                  "podcasts",
+                ]}
+                className="text-white font-bold mx-[1px] text-lg md:text-lg sm:text-base"
+                duration={2000}
+              />
+              <span className="ml-[1px]">do YouTube em alta qualidade</span>
+            </div>
 
-          <Card className="w-full bg-background/20 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg mt-2 mb-20">
-            <CardContent className="pt-6 px-4 sm:px-6 pb-6">
-              <div className="flex flex-col space-y-5">
-                <div className="flex flex-col sm:flex-row w-full space-y-2 sm:space-y-0 sm:space-x-2">
-                  <Input
-                    className="bg-background/70 border border-gray-700 focus-visible:ring-gray-500 h-11 text-white placeholder:text-gray-400 rounded-lg"
-                    placeholder="Cole aqui o link do seu vídeo"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                  />
-                  <Button
-                    onClick={handleSearch}
-                    disabled={isLoading || !url}
-                    className="whitespace-nowrap bg-white text-black hover:bg-gray-200 transition-colors duration-300 sm:w-auto w-full h-11 rounded-lg font-medium"
-                  >
-                    Procurar
-                  </Button>
-                </div>
+            <Card className="w-full bg-background/20 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg mt-2 mb-20">
+              <CardContent className="pt-6 px-4 sm:px-6 pb-6">
+                <div className="flex flex-col space-y-5">
+                  <div className="flex flex-col sm:flex-row w-full space-y-2 sm:space-y-0 sm:space-x-2">
+                    <Input
+                      className="bg-background/70 border border-gray-700 focus-visible:ring-gray-500 h-11 text-white placeholder:text-gray-400 rounded-lg"
+                      placeholder="Cole aqui o link do seu vídeo"
+                      value={url}
+                      onChange={(e) => setUrl(e.target.value)}
+                    />
+                    <Button
+                      onClick={handleSearch}
+                      disabled={isLoading || !url}
+                      className="whitespace-nowrap bg-white text-black hover:bg-gray-200 transition-colors duration-300 sm:w-auto w-full h-11 rounded-lg font-medium"
+                    >
+                      Procurar
+                    </Button>
+                  </div>
 
-                {!url && !videoInfo && (
-                  <div className="py-8 text-center">
+                  {!url && !videoInfo && (
+                    <div className="py-8 text-center">
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                        className="relative flex items-center justify-center"
+                      >
+                        <div className="absolute w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+                        <p className="text-gray-400 text-sm mb-2 relative">
+                          ✨ Comece colando um link do YouTube acima ✨
+                        </p>
+                      </motion.div>
+                      <p className="text-gray-500 text-xs">
+                        Suportamos links do YouTube, YouTube Music e YouTube
+                        Shorts
+                      </p>
+                    </div>
+                  )}
+
+                  {error && (
+                    <p className="text-red-500 text-sm my-2">{error}</p>
+                  )}
+
+                  {isLoading && (
+                    <div className="w-full flex justify-center py-8">
+                      <div className="relative">
+                        <div className="absolute inset-0 rounded-full blur-md bg-white/10"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white relative"></div>
+                      </div>
+                    </div>
+                  )}
+
+                  {videoInfo && !isLoading && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.5 }}
-                      className="relative flex items-center justify-center"
+                      className="space-y-5"
                     >
-                      <div className="absolute w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
-                      <p className="text-gray-400 text-sm mb-2 relative">
-                        ✨ Comece colando um link do YouTube acima ✨
-                      </p>
-                    </motion.div>
-                    <p className="text-gray-500 text-xs">
-                      Suportamos links do YouTube, YouTube Music e YouTube
-                      Shorts
-                    </p>
-                  </div>
-                )}
-
-                {error && <p className="text-red-500 text-sm my-2">{error}</p>}
-
-                {isLoading && (
-                  <div className="w-full flex justify-center py-8">
-                    <div className="relative">
-                      <div className="absolute inset-0 rounded-full blur-md bg-white/10"></div>
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white relative"></div>
-                    </div>
-                  </div>
-                )}
-
-                {videoInfo && !isLoading && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="space-y-5"
-                  >
-                    <div className="w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
-                      <YouTube
-                        videoId={videoInfo.id}
-                        className="w-full h-full"
-                        opts={{
-                          width: "100%",
-                          height: "100%",
-                          playerVars: {
-                            autoplay: 0,
-                            playsinline: 1,
-                          },
-                        }}
-                      />
-                    </div>
-
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="bg-gray-900/50 backdrop-blur-sm p-3 sm:p-4 rounded-lg border border-gray-800 relative overflow-hidden shadow-md"
-                    >
-                      <div className="absolute inset-0 bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.05),transparent)] animate-[shimmer_2s_infinite]"></div>
-                      <p className="text-center text-base sm:text-lg font-medium relative">
-                        Vídeo encontrado! Selecione suas preferências abaixo.
-                      </p>
-                    </motion.div>
-
-                    <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-2">
-                      <div className="w-full sm:w-1/2">
-                        <p className="text-sm mb-1 text-gray-300">Formato:</p>
-                        <Select value={format} onValueChange={setFormat}>
-                          <SelectTrigger className="bg-[#1f1f1f] border border-gray-700 text-white rounded-lg h-11">
-                            <SelectValue placeholder="Formato" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-[#1f1f1f] border border-gray-700 text-white">
-                            <SelectItem
-                              value="mp4"
-                              className="text-white hover:bg-slate-700 hover:text-white"
-                            >
-                              mp4
-                            </SelectItem>
-                            <SelectItem
-                              value="mp3"
-                              className="text-white hover:bg-slate-700 hover:text-white"
-                            >
-                              mp3
-                            </SelectItem>
-                            <SelectItem
-                              value="avi"
-                              className="text-white hover:bg-slate-700 hover:text-white"
-                            >
-                              avi
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <div className="w-full aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
+                        <YouTube
+                          videoId={videoInfo.id}
+                          className="w-full h-full"
+                          opts={{
+                            width: "100%",
+                            height: "100%",
+                            playerVars: {
+                              autoplay: 0,
+                              playsinline: 1,
+                            },
+                          }}
+                        />
                       </div>
-                      <div className="w-full sm:w-1/2">
-                        <p className="text-sm mb-1 text-gray-300">Qualidade:</p>
-                        <Select value={quality} onValueChange={setQuality}>
-                          <SelectTrigger className="bg-[#1f1f1f] border border-gray-700 text-white rounded-lg h-11">
-                            <SelectValue placeholder="Qualidade" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-[#1f1f1f] border border-gray-700 text-white">
-                            <SelectItem
-                              value="1080p"
-                              className="text-white hover:bg-slate-700 hover:text-white"
-                            >
-                              1080p
-                            </SelectItem>
-                            <SelectItem
-                              value="720p"
-                              className="text-white hover:bg-slate-700 hover:text-white"
-                            >
-                              720p
-                            </SelectItem>
-                            <SelectItem
-                              value="480p"
-                              className="text-white hover:bg-slate-700 hover:text-white"
-                            >
-                              480p
-                            </SelectItem>
-                            <SelectItem
-                              value="360p"
-                              className="text-white hover:bg-slate-700 hover:text-white"
-                            >
-                              360p
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
 
-                    <div className="w-full isolate">
-                      <button
-                        onClick={handleDownload}
-                        className="w-full group/download relative overflow-hidden h-10 sm:h-12 bg-white text-black font-medium rounded-lg flex items-center justify-center transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] border border-gray-300"
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="bg-gray-900/50 backdrop-blur-sm p-3 sm:p-4 rounded-lg border border-gray-800 relative overflow-hidden shadow-md"
                       >
-                        <span className="absolute inset-0 w-full h-full transition-all duration-700 ease-in-out bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 opacity-0 group-hover/download:opacity-90"></span>
-                        <span className="absolute inset-0 w-full h-full bg-[linear-gradient(110deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.3)_25%,rgba(255,255,255,0.5)_50%,rgba(255,255,255,0.3)_75%,rgba(255,255,255,0)_100%)] opacity-0 group-hover/download:opacity-100 transition-all duration-700 ease-in-out group-hover/download:translate-x-[400px] group-hover/download:transition-transform group-hover/download:duration-2000 group-hover/download:ease-in-out"></span>
-                        <span className="relative flex items-center justify-center gap-2 z-10 transition-colors duration-700 ease-in-out group-hover/download:text-white text-sm sm:text-base">
-                          Baixar Agora
-                          <Download
-                            className="group-hover/download:animate-bounce transition-transform duration-700"
-                            size={18}
-                          />
-                        </span>
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.05),transparent)] animate-[shimmer_2s_infinite]"></div>
+                        <p className="text-center text-base sm:text-lg font-medium relative">
+                          Vídeo encontrado! Selecione suas preferências abaixo.
+                        </p>
+                      </motion.div>
+
+                      <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-2">
+                        <div className="w-full sm:w-1/2">
+                          <p className="text-sm mb-1 text-gray-300">Formato:</p>
+                          <Select value={format} onValueChange={setFormat}>
+                            <SelectTrigger className="bg-[#1f1f1f] border border-gray-700 text-white rounded-lg h-11">
+                              <SelectValue placeholder="Formato" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#1f1f1f] border border-gray-700 text-white">
+                              <SelectItem
+                                value="mp4"
+                                className="text-white hover:bg-slate-700 hover:text-white"
+                              >
+                                mp4
+                              </SelectItem>
+                              <SelectItem
+                                value="mp3"
+                                className="text-white hover:bg-slate-700 hover:text-white"
+                              >
+                                mp3
+                              </SelectItem>
+                              <SelectItem
+                                value="avi"
+                                className="text-white hover:bg-slate-700 hover:text-white"
+                              >
+                                avi
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="w-full sm:w-1/2">
+                          <p className="text-sm mb-1 text-gray-300">
+                            Qualidade:
+                          </p>
+                          <Select value={quality} onValueChange={setQuality}>
+                            <SelectTrigger className="bg-[#1f1f1f] border border-gray-700 text-white rounded-lg h-11">
+                              <SelectValue placeholder="Qualidade" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#1f1f1f] border border-gray-700 text-white">
+                              <SelectItem
+                                value="1080p"
+                                className="text-white hover:bg-slate-700 hover:text-white"
+                              >
+                                1080p
+                              </SelectItem>
+                              <SelectItem
+                                value="720p"
+                                className="text-white hover:bg-slate-700 hover:text-white"
+                              >
+                                720p
+                              </SelectItem>
+                              <SelectItem
+                                value="480p"
+                                className="text-white hover:bg-slate-700 hover:text-white"
+                              >
+                                480p
+                              </SelectItem>
+                              <SelectItem
+                                value="360p"
+                                className="text-white hover:bg-slate-700 hover:text-white"
+                              >
+                                360p
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      <div className="w-full isolate">
+                        <button
+                          onClick={handleDownload}
+                          className="w-full group/download relative overflow-hidden h-10 sm:h-12 bg-white text-black font-medium rounded-lg flex items-center justify-center transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] border border-gray-300"
+                        >
+                          <span className="absolute inset-0 w-full h-full transition-all duration-700 ease-in-out bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900 opacity-0 group-hover/download:opacity-90"></span>
+                          <span className="absolute inset-0 w-full h-full bg-[linear-gradient(110deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.3)_25%,rgba(255,255,255,0.5)_50%,rgba(255,255,255,0.3)_75%,rgba(255,255,255,0)_100%)] opacity-0 group-hover/download:opacity-100 transition-all duration-700 ease-in-out group-hover/download:translate-x-[400px] group-hover/download:transition-transform group-hover/download:duration-2000 group-hover/download:ease-in-out"></span>
+                          <span className="relative flex items-center justify-center gap-2 z-10 transition-colors duration-700 ease-in-out group-hover/download:text-white text-sm sm:text-base">
+                            Baixar Agora
+                            <Download
+                              className="group-hover/download:animate-bounce transition-transform duration-700"
+                              size={18}
+                            />
+                          </span>
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
       </div>
     </BackgroundBeamsWithCollision>
   );
