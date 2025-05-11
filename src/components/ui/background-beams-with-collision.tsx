@@ -70,23 +70,26 @@ export const BackgroundBeamsWithCollision = ({
     <div
       ref={parentRef}
       className={cn(
-        "h-screen min-h-screen bg-gradient-to-b from-black to-neutral-900 dark:from-black dark:to-neutral-900 relative flex items-center w-full justify-center overflow-hidden",
+        "min-h-screen bg-gradient-to-b from-black to-neutral-900 dark:from-black dark:to-neutral-900 relative flex flex-col items-center w-full justify-start overflow-x-hidden overflow-y-auto",
         className
       )}
     >
-      {beams.map((beam) => (
-        <CollisionMechanism
-          key={beam.initialX + "beam-idx"}
-          beamOptions={beam}
-          containerRef={containerRef}
-          parentRef={parentRef}
-        />
-      ))}
+      <div className="fixed inset-0 w-full h-full pointer-events-none">
+        {beams.map((beam) => (
+          <CollisionMechanism
+            key={beam.initialX + "beam-idx"}
+            beamOptions={beam}
+            containerRef={containerRef}
+            parentRef={parentRef}
+          />
+        ))}
+      </div>
 
-      {children}
+      <div className="w-full relative z-10">{children}</div>
+
       <div
         ref={containerRef}
-        className="absolute bottom-0 bg-black w-full inset-x-0 pointer-events-none"
+        className="fixed bottom-0 bg-black w-full inset-x-0 pointer-events-none"
         style={{
           boxShadow:
             "0 0 24px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 4px rgba(0, 0, 0, 0.2), 0 16px 68px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset",
@@ -130,6 +133,21 @@ const CollisionMechanism = ({
   });
   const [beamKey, setBeamKey] = useState(0);
   const [cycleCollisionDetected, setCycleCollisionDetected] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(
+    typeof window !== "undefined" ? window.innerHeight : 1000
+  );
+
+  useEffect(() => {
+    // Update window height on resize
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     const checkCollision = () => {
@@ -140,13 +158,13 @@ const CollisionMechanism = ({
         !cycleCollisionDetected
       ) {
         const beamRect = beamRef.current.getBoundingClientRect();
-        const containerRect = containerRef.current.getBoundingClientRect();
         const parentRect = parentRef.current.getBoundingClientRect();
 
-        if (beamRect.bottom >= containerRect.top) {
+        // Check if the beam has reached the bottom of the viewport
+        if (beamRect.bottom >= windowHeight - 10) {
           const relativeX =
             beamRect.left - parentRect.left + beamRect.width / 2;
-          const relativeY = beamRect.bottom - parentRect.top;
+          const relativeY = windowHeight - 10;
 
           setCollision({
             detected: true,
@@ -163,7 +181,7 @@ const CollisionMechanism = ({
     const animationInterval = setInterval(checkCollision, 50);
 
     return () => clearInterval(animationInterval);
-  }, [cycleCollisionDetected, containerRef, parentRef]);
+  }, [cycleCollisionDetected, containerRef, parentRef, windowHeight]);
 
   useEffect(() => {
     if (collision.detected && collision.coordinates) {
@@ -191,7 +209,7 @@ const CollisionMechanism = ({
         }}
         variants={{
           animate: {
-            translateY: beamOptions.translateY || "1800px",
+            translateY: beamOptions.translateY || `${windowHeight + 100}px`,
             translateX: beamOptions.translateX || "0px",
             rotate: beamOptions.rotate || 0,
           },
@@ -205,7 +223,7 @@ const CollisionMechanism = ({
           repeatDelay: beamOptions.repeatDelay || 0,
         }}
         className={cn(
-          "absolute left-0 top-20 m-auto h-14 w-px rounded-full bg-gradient-to-t from-white via-white/80 to-transparent",
+          "absolute left-0 top-0 m-auto h-14 w-px rounded-full bg-gradient-to-t from-white via-white/80 to-transparent",
           beamOptions.className
         )}
       />
@@ -238,7 +256,15 @@ const Explosion = ({ ...props }: React.HTMLProps<HTMLDivElement>) => {
   }));
 
   return (
-    <div {...props} className={cn("absolute z-50 h-2 w-2", props.className)}>
+    <div
+      {...props}
+      className={cn("fixed z-50 h-2 w-2", props.className)}
+      style={{
+        ...props.style,
+        bottom: "10px",
+        transform: "translate(-50%, 0)",
+      }}
+    >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
